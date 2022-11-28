@@ -1,12 +1,11 @@
 <template>
   <div class="header">
     <div class="header-left"></div>
-    <div class="header-title">中国银行欢迎你!</div>
+    <div class="header-title">{{ userName }},中国银行欢迎你!</div>
     <div class="header-right" @click="handleDrapdownChange">
       <el-dropdown trigger="click">
         <div class="message">
           <el-avatar class="img" :size="30" :src="url" />
-          <div class="text">{{ userName }}</div>
         </div>
         <template #dropdown>
           <el-dropdown-menu>

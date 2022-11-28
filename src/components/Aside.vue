@@ -4,38 +4,31 @@
       <img src="../assets/logo.svg" alt="" />
       <span>User Operations</span>
     </div>
-    <div class="menu">
-      <!-- 引入element-plus -->
-      <el-menu
-        class="el-menu-vertical-demo"
-        background-color="none"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-        :collapse-transition="false"
-        default-openeds="个人中心"
-        router
+    <div class="menu" v-for="(item, index) in menuData" :key="index">
+      <div
+        :class="['menu-item', { active: activeIndex == index }]"
+        @click="handleItemClick(index)"
       >
-        <el-sub-menu
-          v-for="(item, index) in menuData"
-          :index="index + ''"
-          :key="item.id"
-        >
-          <template #title>
-            <span>{{ item }}</span>
-          </template>
-        </el-sub-menu>
-      </el-menu>
+        {{ item.name }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
   import { ref } from "vue";
-  import { useRouter } from "vue-router";
+  import { useRouter, useRoute } from "vue-router";
 
   const router = useRouter();
-  console.log(router.getRoutes());
-  const menuData = ["个人中心", "个人帐单", "操作转账"];
+  const route = useRoute();
+  const activeIndex = ref(0);
+  const menuData = router.getRoutes().slice(0, 3);
+  console.log(route);
+
+  const handleItemClick = (index) => {
+    router.push(menuData[index].path);
+    activeIndex.value = index;
+  };
 </script>
 
 <style lang="less" scoped>
@@ -57,8 +50,17 @@
     }
     .menu {
       color: #ffffff;
-      .el-menu {
-        border-right: 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+      .menu-item {
+        width: 100%;
+        height: 55px;
+        line-height: 55px;
+        cursor: pointer;
+      }
+      .active {
+        color: #ffcd43;
       }
     }
   }

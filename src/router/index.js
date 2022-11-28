@@ -29,7 +29,7 @@ const routes = [
       {
         path: "bill",
         name: "个人账单",
-        component: import("@/views/userMain/transfer.vue"),
+        component: import("@/views/userMain/bill.vue"),
       },
       {
         path: "transfer",
